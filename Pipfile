@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+jsonschema = "*"
+python-telegram-bot = "*"
+sentence-transformers = "*"
+spacy = "*"
+spacy-transformers = "*"
+spacy-lookups-data = "*"
+talosbot = {file = ".", editable = true}
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
