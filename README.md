@@ -1,41 +1,66 @@
-# The TALOS framework
-## ChatOps made easy
+# 🤖 The TALOS Framework
+## 💬 ChatOps made easy
 
-### About
-With talosbot, you will be able to build operational bots without having to struggle with chat APIS or artifical intelligence, just focus in your tasks, aka skills, that are just functions with a return with the message that will be sent back.  
-The framework has been implemented to be easy to use and extend any components if you need some custom experience.
+### 📖 About
 
-### Components
-A bot is made of 3 main independent components:
+With **TalosBot**, you can build operational bots without struggling with chat APIs or artificial intelligence.  
+Just focus on your **skills** —simple Python functions that return the message to send back.
 
-#### Channel
-Deals with the messaging through a specific communication channel.
+The framework is designed to be:
+- 🧩 Easy to use
+- 🔧 Fully extensible
+- 🚀 Production-ready
 
-#### Matcher
-Matches a received sentence to an similar example sentence associated to the skill.
+### 🧱 Components
 
-#### Parser
-The only optional component, will extract what are considered parameters inside a user sentence and make them available to the skill function without having to struggle parsing the sentence by yourself in the skill.
+A bot in Talos is composed of **three main components**:
 
-### Built-in models
-You have available a built in model that is executed locally so no info is sent to third parties.
-#### Matcher model
-BertMatcher: It uses sentence-transformers library to perform a cosine similarity.
-#### NER Parser
-NERParser: It uses a Spacy pipeline with the NER component with a default `en_core_web_lg` downloaded model that you can change by another one when executing a training task with the talos cli (read below for more info).
+- **Channel**: Handles messaging through a communication platform.
+- **Matcher**: Matches an input sentence to an example sentence tied to a skill.
+- **Parser** *(optional)*: Extracts parameters from user input and passes them to the skill without needing to manually parse anything.
 
-### Workflow overview
-1. A user calls the bot with a sentence in some communication channel, like a telegram group
-1. The bot instance receives this sentence and performs the matching operation against all the available sentences
-1. If a parser is configured, will extract all the parameters from the sentence and they will be available in a dictionary
-1. The skill is executed and a message is sent back with the contents of the return in the skill.
+### 🧠 Built-in Models
 
-### Quickstart
-Install the framework with your favorite virtualenv manager, the install command is:
+Talos runs locally —no data is sent to third parties.  
+Out-of-the-box models include:
+
+- **`BertMatcher`**: Uses `sentence-transformers` to perform cosine similarity.
+- **`NERParser`**: Uses a spaCy pipeline with NER via the default `en_core_web_lg` model. You can replace it with a custom one using the CLI trainer (explained below).
+
+### 🌐 Built-in Channels
+
+Talos supports several channels, so you don’t have to deal with chat platform intricacies:
+
+- **Slack**:  
+  Uses `slack-bolt` with slash commands and no public endpoint required.  
+  Simply:
+  - Create a new Slack App
+  - Add the `chat:write` OAuth scope
+  - Enable **Socket Mode**
+  - Register a slash command (default: `/talos`)  
+  You’ll receive the **app token** and **bot token**, both required for the connection.
+
+- **Telegram**:  
+  Create a bot via Telegram’s [@BotFather](https://core.telegram.org/bots#6-botfather), and get your bot token.  
+  Plug it into Talos and you're ready to go.
+
+### 🔄 Workflow Overview
+
+1. A user sends a sentence via a supported channel (e.g., a Telegram group).
+2. The bot matches the sentence against all registered examples.
+3. If a parser is configured, parameters are extracted into a dictionary.
+4. The matching skill is executed and the return message is sent back through the channel.
+
+### ⚡ Quickstart
+
+Install Talos with pip:
+
 ```bash
 pip install talosbot
 ```
-Then create a `bot.py` file with for example:
+
+Then create a simple bot in `bot.py`:
+
 ```python
 from talosbot.matchers.bert import BertMatcher
 from talosbot.parsers.ner import NERParser
@@ -59,16 +84,30 @@ def no_skill():
 
 if __name__ == '__main__':
     bot.run()
-
 ```
-This will start a dummy CLI communication interactive channel so you can test it, notice that for the NER parser, you will need to load a pretrained model to identify your own entities. You can download a pretrained model [here](https://github.com/sergiopr89/talosbot-models).  
-If you want to train a new NER model, you can use the `talos` cli with your own dataset with:
+
+This launches a CLI channel for quick local testing.  
+For the NER parser, you’ll need a trained model to detect your entities.  
+You can download a pre-trained one [here](https://github.com/sergiopr89/talosbot-models).
+
+---
+
+### 🧪 Training a New NER Model
+
+Train from a dataset:
 ```bash
 talos trainer --trainingset data.json --output ner_model
 ```
-Or train from a specific Spacy model
+
+Train from a specific spaCy model:
 ```bash
 talos trainer --trainingset data.json --output ner_model/ --model en_core_web_lg
 ```
-In the [pretrained models repository](https://github.com/sergiopr89/talosbot-models) you will find some data.json examples with the expected format.  
-For more examples, take a look at the [examples](examples/) directory on this project.
+
+You’ll find `data.json` examples in the [pretrained models repo](https://github.com/sergiopr89/talosbot-models).
+
+---
+
+### 📁 More Examples
+
+Explore the [examples](examples/) directory in this repo to see how to use Talos in different setups and contexts.
