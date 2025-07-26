@@ -15,7 +15,7 @@ class AbstractChannel(ABC):
         self.bot = bot
 
     @abstractmethod
-    def recieve_message(self) -> Message:
+    def receive_message(self) -> Message:
         '''
         Gets a new message from the channel and returns it
         '''

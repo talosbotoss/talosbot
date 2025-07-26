@@ -10,6 +10,7 @@ sentence-transformers = "*"
 spacy = "*"
 spacy-transformers = "*"
 spacy-lookups-data = "*"
+slack-bolt = "*"
 talosbot = {file = ".", editable = true}
 
 [dev-packages]
