@@ -31,7 +31,7 @@ class SlackChannel(AbstractChannel):
     def establish(self) -> None:
         SocketModeHandler(self.app, self.app_token).start()
 
-    def recieve_message(self) -> Message:
+    def receive_message(self) -> Message:
         '''
         Required by AbstractChannel. Not used directly in SlackChannel
         '''

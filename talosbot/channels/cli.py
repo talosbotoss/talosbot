@@ -5,7 +5,7 @@ class CLIChannel(AbstractChannel):
     def __init__(self) -> None:
         super().__init__()
 
-    def recieve_message(self) -> Message:
+    def receive_message(self) -> Message:
         '''
         Returns the message obtained from the stdin
         '''
@@ -23,6 +23,6 @@ class CLIChannel(AbstractChannel):
         Makes an execution loop with the in/out message
         '''
         while True:
-            message = self.recieve_message()
+            message = self.receive_message()
             response_message = self.bot.message_handler(message)
             self.dispatch_message(response_message)

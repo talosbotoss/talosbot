@@ -13,7 +13,7 @@ class TelegramChannel(AbstractChannel):
         self.restricted = restricted
         self.white_list = white_list
         self.app = ApplicationBuilder().token(self.token).build()
-        self.app.add_handler(CommandHandler(trigger_word, self.recieve_message))
+        self.app.add_handler(CommandHandler(trigger_word, self.receive_message))
 
     def establish(self):
         '''
@@ -21,9 +21,9 @@ class TelegramChannel(AbstractChannel):
         '''
         self.app.run_polling()
 
-    async def recieve_message(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> Message:
+    async def receive_message(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> Message:
         '''
-        When a message is recieved, the message handler is called,
+        When a message is received, the message handler is called,
         then sends the response with the dispatch method
         '''
         user_message = ' '.join(context.args).strip()
